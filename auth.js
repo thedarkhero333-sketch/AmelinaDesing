@@ -1,61 +1,66 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('formRegistro');
+    const form = document.getElementById('formLogin');
     const modalLogin = document.getElementById('modalLogin');
+    const modalOferta = document.getElementById('modalOferta');
     const URL_GOOGLE_SHEET = "https://script.google.com/macros/s/AKfycbz-ofME3KlD1ouX4lzboS14Z-ZTgTUks4fbsSxsUZYPIIylUu5JXp9nFMriswWRVL2I3A/exec";
 
-    // 1. Verificamos si ya hay un usuario en el navegador
-    const usuarioLogueado = localStorage.getItem('usuarioAme');
+    // 1. Verificamos si ya hay un usuario registrado en este navegador
+    const usuarioLogueado = localStorage.getItem('user_amelina');
 
     if (usuarioLogueado) {
         modalLogin.classList.remove('activo');
         document.body.style.overflow = "auto";
+        // Si ya está logueado, podríamos mostrar la oferta (opcional)
+        // modalOferta.classList.add('activo'); 
+    } else {
+        modalLogin.classList.add('activo');
+        document.body.style.overflow = "hidden";
     }
 
-    // 2. Escuchamos el envío del formulario
+    // 2. Escuchamos el envío del formulario con validación
     form.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        // Feedback visual inmediato
+        // Feedback visual
         const btn = e.target.querySelector('button');
-        const textoOriginal = btn.innerText;
-        btn.innerText = "ENVIANDO...";
+        btn.innerText = "VERIFICANDO...";
         btn.disabled = true;
 
-        // Capturamos los datos
+        // Capturamos y limpiamos los datos
         const datosUsuario = {
-            nombre: document.getElementById('regNombre').value,
-            apellido: document.getElementById('regApellido').value,
-            email: document.getElementById('regEmail').value,
-            telefono: document.getElementById('regTel').value,
-            dni: document.getElementById('regDni').value,
+            nombre: document.getElementById('nombre').value.trim(),
+            apellido: document.getElementById('apellido').value.trim(),
+            email: document.getElementById('email').value.trim().toLowerCase(),
+            telefono: document.getElementById('telefono').value.trim(),
+            dni: document.getElementById('dni').value.trim(),
             fechaRegistro: new Date().toLocaleString()
         };
 
-        // A. Guardamos en LocalStorage (para que el cliente no se vuelva a registrar)
-        localStorage.setItem('usuarioAme', JSON.stringify(datosUsuario));
+        // A. Guardamos en LocalStorage
+        localStorage.setItem('user_amelina', JSON.stringify(datosUsuario));
 
-        // B. Mandamos los datos a tu Google Sheets
+        // B. Mandamos los datos a Google Sheets
         fetch(URL_GOOGLE_SHEET, {
             method: 'POST',
-            mode: 'no-cors', // Importante para evitar bloqueos de seguridad
+            mode: 'no-cors',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(datosUsuario)
         })
         .then(() => {
-            // Éxito: Feedback y cerrar modal
-            btn.innerText = "¡DATOS GUARDADOS!";
+            btn.innerText = "¡BIENVENIDO/A!";
             btn.style.backgroundColor = "#a8bfa8";
 
             setTimeout(() => {
                 modalLogin.classList.remove('activo');
+                modalOferta.classList.add('activo');
                 document.body.style.overflow = "auto";
-                alert(`¡Hola ${datosUsuario.nombre}! Tus datos han sido registrados con éxito.`);
-            }, 1500);
+            }, 1000);
         })
         .catch(err => {
-            console.error("Error al enviar a la base de datos:", err);
-            // Si falla el internet, igual lo dejamos entrar porque los datos se guardaron en LocalStorage
+            console.error("Error al enviar:", err);
+            // Si falla la conexión, igual lo dejamos pasar
             modalLogin.classList.remove('activo');
+            modalOferta.classList.add('activo');
             document.body.style.overflow = "auto";
         });
     });
