@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amelina Design</title>
+    <title>Ame - Mayorista Textil & Deco</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -38,7 +38,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 50px;
+            padding: 15px 50px;
         }
 
         .logo-img { max-height: 55px; width: auto; }
@@ -66,21 +66,32 @@
             letter-spacing: 1px;
         }
 
-        /* --- CARRITO EN HEADER --- */
-        .contenedor-carrito-header { position: relative; cursor: pointer; }
+        /* CARRITO EN NAV */
+        .contenedor-carrito-header {
+            position: relative;
+            cursor: pointer;
+        }
+
         .img-carrito { width: 32px; height: auto; transition: transform 0.2s; }
         .img-carrito:hover { transform: scale(1.1); }
+
         .badge-carrito {
-            position: absolute; top: -8px; right: -10px;
-            background-color: var(--alerta-rojo); color: white;
-            font-size: 0.7rem; font-weight: bold; padding: 2px 6px;
-            border-radius: 50%; display: none;
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background-color: var(--alerta-rojo);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 50%;
+            display: none;
         }
 
         /* --- BANNER HERO --- */
         .hero {
             position: relative;
-            height: 70vh;
+            height: 75vh;
             width: 100%;
             display: flex;
             justify-content: center;
@@ -96,7 +107,7 @@
             background-image: url('img/banner.png');
             background-size: cover;
             background-position: center;
-            filter: blur(4px) brightness(0.7);
+            filter: blur(5px) brightness(0.7);
             z-index: 1;
             transform: scale(1.1);
         }
@@ -110,75 +121,145 @@
 
         .hero-titulo {
             font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            font-size: 3.8rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 15px rgba(0,0,0,0.4);
         }
 
         .hero-cursiva {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 400;
             letter-spacing: 1px;
             opacity: 0.95;
+            text-shadow: 1px 1px 8px rgba(0,0,0,0.3);
         }
 
-        /* --- WHATSAPP FLOTANTE --- */
-        .btn-whatsapp-flotante { position: fixed; bottom: 25px; right: 25px; z-index: 2000; transition: transform 0.3s ease; }
-        .btn-whatsapp-flotante:hover { transform: scale(1.1); }
-        .btn-whatsapp-flotante img { width: 60px; height: 60px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1)); }
-
-        /* --- SECCIONES --- */
-        .seccion-catalogo { padding: 60px 50px; max-width: 1200px; margin: 0 auto; }
-        .titulo-seccion { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--beige-oscuro); border-bottom: 2px solid var(--rosa-pastel); padding-bottom: 10px; margin-bottom: 40px; }
+        /* --- GRILLA PRODUCTOS --- */
+        .seccion-catalogo { padding: 80px 50px; max-width: 1200px; margin: 0 auto; }
+        .titulo-seccion { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 2.5rem; 
+            color: var(--beige-oscuro); 
+            border-bottom: 2px solid var(--rosa-pastel); 
+            padding-bottom: 15px; 
+            margin-bottom: 50px; 
+        }
         
         .grid-productos {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 35px;
         }
 
         .tarjeta-producto {
-            background: var(--blanco); border-radius: 15px; overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.02); transition: all 0.3s ease;
-            border: 1px solid var(--rosa-pastel); cursor: pointer;
+            background: var(--blanco);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+            transition: all 0.4s ease;
+            border: 1px solid var(--rosa-pastel);
+            cursor: pointer;
         }
-        .tarjeta-producto:hover { transform: translateY(-10px); }
-        .img-card { width: 100%; height: 260px; object-fit: cover; }
+
+        .tarjeta-producto:hover { transform: translateY(-12px); box-shadow: 0 15px 35px rgba(0,0,0,0.08); }
+
+        .img-card { width: 100%; height: 300px; object-fit: cover; }
         
-        .info-producto { padding: 20px; text-align: center; }
-        .info-producto h3 { margin: 0 0 12px 0; font-size: 1.1rem; }
-        .btn-ver-mas { background-color: var(--beige-medio); border: none; padding: 12px; border-radius: 25px; font-weight: 700; cursor: pointer; width: 100%; }
+        .info-producto { padding: 25px; text-align: center; }
+        .info-producto h3 { margin: 0 0 15px 0; font-size: 1.2rem; color: var(--texto-principal); }
+        
+        .btn-ver-mas { 
+            background-color: var(--beige-medio); 
+            border: none; 
+            padding: 14px; 
+            border-radius: 30px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            width: 100%; 
+            transition: 0.3s;
+        }
+        .btn-ver-mas:hover { background-color: var(--beige-oscuro); color: white; }
 
         /* --- MODALES --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center;
-            z-index: 3000; opacity: 0; visibility: hidden; transition: 0.3s ease;
+            background: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center;
+            z-index: 3000; opacity: 0; visibility: hidden; transition: 0.4s ease;
         }
         .modal-overlay.activo { opacity: 1; visibility: visible; }
+
         .modal-content {
-            background: var(--blanco); padding: 40px; border-radius: 25px;
-            max-width: 480px; width: 85%; text-align: center; position: relative;
-            border: 4px solid var(--beige-oscuro); max-height: 90vh; overflow-y: auto;
+            background: var(--blanco); padding: 45px; border-radius: 30px;
+            max-width: 500px; width: 90%; text-align: center; position: relative;
+            border: 5px solid var(--beige-oscuro);
+            max-height: 90vh; overflow-y: auto;
         }
-        .btn-cerrar-modal { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; border: none; background: none; }
+
+        .btn-cerrar-modal { position: absolute; top: 20px; right: 25px; font-size: 1.8rem; cursor: pointer; border: none; background: none; color: var(--beige-oscuro); }
         
-        .precio-contenedor { margin: 15px 0; }
-        .precio-tachado { text-decoration: line-through; color: #b0b0b0; font-size: 1.1rem; margin-right: 10px; }
-        .precio-promo { color: #d17a7a; font-size: 1.6rem; font-weight: 700; }
-        .img-modal-prod { width: 100%; height: auto; max-height: 300px; object-fit: cover; border-radius: 15px; margin-bottom: 20px; }
+        /* Precios en Modal */
+        .precio-contenedor { margin: 20px 0; }
+        .precio-tachado { text-decoration: line-through; color: #bbb; font-size: 1.2rem; margin-right: 12px; }
+        .precio-promo { color: #d17a7a; font-size: 1.8rem; font-weight: 700; }
+
+        .img-modal-prod { width: 100%; height: auto; max-height: 350px; object-fit: cover; border-radius: 20px; margin-bottom: 25px; }
         
-        .btn-accion { background: var(--texto-principal); color: var(--blanco); border: none; padding: 15px 30px; border-radius: 35px; cursor: pointer; font-weight: bold; width: 100%; font-size: 1rem; transition: 0.3s; }
+        .btn-accion { 
+            background: var(--texto-principal); 
+            color: var(--blanco); 
+            border: none; 
+            padding: 18px 30px; 
+            border-radius: 40px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            width: 100%; 
+            font-size: 1.1rem; 
+            transition: 0.3s; 
+        }
         .btn-accion.agregado { background-color: var(--confirmacion); }
+
         .btn-ws-pedido { background: #25d366; margin-top: 15px; color: white; }
+
+        /* --- FOOTER --- */
+        .footer {
+            background-color: var(--blanco);
+            border-top: 1px solid var(--beige-medio);
+            padding: 60px 50px 30px 50px;
+            margin-top: 80px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .footer-h4 { font-family: 'Playfair Display', serif; color: var(--beige-oscuro); margin-bottom: 25px; font-size: 1.3rem; }
+        .footer-insta img { width: 50px; transition: transform 0.3s; }
+        .footer-insta img:hover { transform: scale(1.15); }
+        .footer-pagos img { max-width: 250px; height: auto; margin-top: 10px; }
+        .footer-bottom { border-top: 1px solid #f2f2f2; margin-top: 50px; padding-top: 25px; text-align: center; font-size: 0.85rem; color: #aaa; }
+
+        /* --- WHATSAPP FLOTANTE ORIGINAL --- */
+        .btn-whatsapp-flotante {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 2000;
+            transition: transform 0.3s ease;
+        }
+        .btn-whatsapp-flotante:hover { transform: scale(1.1); }
+        .btn-whatsapp-flotante img { width: 65px; height: 65px; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.15)); }
 
         @media (max-width: 768px) {
             .header { flex-direction: column; padding: 15px; gap: 15px; }
-            .hero-titulo { font-size: 2.5rem; }
-            .hero-cursiva { font-size: 1.3rem; }
-            .hero { height: 50vh; }
+            .hero-titulo { font-size: 2.8rem; }
+            .hero-cursiva { font-size: 1.5rem; }
+            .hero { height: 60vh; }
+            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
         }
     </style>
 </head>
@@ -187,12 +268,12 @@
     <div id="modalOferta" class="modal-overlay activo">
         <div class="modal-content" style="background: var(--rosa-pastel); border-color: white;">
             <h2 style="font-family: 'Playfair Display'; font-size: 2.2rem; color: #b56b6b; margin: 0;">¡Liquidación!</h2>
-            <div style="background: white; padding: 20px; border-radius: 20px; margin: 20px 0;">
+            <div style="background: white; padding: 25px; border-radius: 20px; margin: 25px 0;">
                 <span style="text-decoration: line-through; color: #bbb;">Mínimo: $300.000</span>
-                <span style="display: block; font-size: 1.5rem; font-weight: 700; color: #d17a7a;">¡LLEVÁ DESDE 4 PRODUCTOS!</span>
+                <span style="display: block; font-size: 1.5rem; font-weight: 700; color: #d17a7a; margin-top: 5px;">¡LLEVÁ DESDE 4 PRODUCTOS!</span>
             </div>
-            <p>🔥 Hasta el 28 de Febrero</p>
-            <button class="btn-accion" onclick="cerrarModal('modalOferta')">INGRESAR</button>
+            <p>🔥 Promo válida hasta el 28 de Febrero</p>
+            <button class="btn-accion" onclick="cerrarModal('modalOferta')">INGRESAR A LA TIENDA</button>
         </div>
     </div>
 
@@ -201,7 +282,7 @@
         <div class="header-derecha">
             <nav>
                 <ul class="nav-menu">
-                    <li><a href="#Caminos">Caminos</a></li>
+                    <li><a href="#mantas">Mantas</a></li>
                     <li><a href="#pillows">Pillows</a></li>
                     <li><a href="#ceramicas">Cerámicas</a></li>
                 </ul>
@@ -216,13 +297,13 @@
     <section class="hero">
         <div class="hero-background"></div>
         <div class="hero-content">
-            <h1 class="hero-titulo">A M E L I N A</h1>
+            <h1 class="hero-titulo">Ame Textiles</h1>
             <p class="hero-cursiva">"Transformamos casas en hogares, con la calidez que tus clientes buscan."</p>
         </div>
     </section>
 
-    <section id="caminos" class="seccion-catalogo">
-        <h2 class="titulo-seccion">Caminos</h2>
+    <section id="mantas" class="seccion-catalogo">
+        <h2 class="titulo-seccion">Caminos & Mantas</h2>
         <div class="grid-productos">
             <div class="tarjeta-producto" onclick="abrirProducto('Camino de Gasa Natural', 'Nuestros caminos de 𝘎𝘈𝘚𝘈 𝘕𝘈𝘛𝘜𝘙𝘈𝘓 en celeste pastel, un color que te enamora en cuanto lo vez', '$25.000', '$18.500', 'img/productos/camgas.jpg')">
                 <img src="img/productos/camgas.jpg" alt="Camino de Gasa" class="img-card">
@@ -241,26 +322,51 @@
         </div>
     </section>
 
-    <section id="ceramicas" class="seccion-catalogo" style="margin-bottom: 80px;">
+    <section id="ceramicas" class="seccion-catalogo">
         <h2 class="titulo-seccion">Cerámicas</h2>
         <div class="grid-productos">
             <div class="tarjeta-producto" onclick="abrirProducto('Campanitas de Cerámica', 'Estas campanitas son todo lo que están bien y tienen mil usos. Pero HOY te muestro para mermelada y queso crema haciendo q un desayuno o merienda sea simplemente perfecto', '$15.000', '$11.200', 'img/productos/camp_cer.jpg')">
-                <img src="img/productos/camp_cer.jpg" alt="Campanitas de Cerámica" class="img-card">
+                <img src="img/productos/camp_cer.jpg" alt="Campanitas" class="img-card">
                 <div class="info-producto"><h3>Campanitas de Cerámica</h3><button class="btn-ver-mas">Ver detalle</button></div>
             </div>
         </div>
     </section>
 
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-item">
+                <img src="img/ame.png" alt="Ame" style="max-height: 70px; margin-bottom: 20px;">
+                <p style="color: var(--texto-secundario); line-height: 1.6;">Venta mayorista de textiles y decoración artesanal con envíos a toda la Argentina.</p>
+            </div>
+            <div class="footer-item">
+                <h4 class="footer-h4">Seguinos en redes</h4>
+                <a href="https://www.instagram.com/amelinadesigns/" target="_blank" class="footer-insta">
+                    <img src="img/insta.png" alt="Instagram">
+                </a>
+                <p style="margin-top: 15px; font-size: 0.9rem;">@amelinadesigns</p>
+            </div>
+            <div class="footer-item">
+                <h4 class="footer-h4">Medios de Pago</h4>
+                <div class="footer-pagos">
+                    <img src="img/transf.png" alt="Medios de Pago">
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 Ame Textiles & Deco - Hecho con amor.
+        </div>
+    </footer>
+
     <div id="modalProducto" class="modal-overlay">
         <div class="modal-content">
             <button class="btn-cerrar-modal" onclick="cerrarModal('modalProducto')">✖</button>
             <img id="modalImgTag" src="" alt="Producto" class="img-modal-prod">
-            <h2 id="modalTitulo" style="font-family: 'Playfair Display'; color: var(--beige-oscuro);"></h2>
+            <h2 id="modalTitulo" style="font-family: 'Playfair Display'; color: var(--beige-oscuro); margin-bottom: 10px;"></h2>
             <div class="precio-contenedor">
                 <span id="modalPrecioViejo" class="precio-tachado"></span>
                 <span id="modalPrecioNuevo" class="precio-promo"></span>
             </div>
-            <p id="modalDesc" style="color: var(--texto-secundario); margin-bottom: 25px; font-size: 0.95rem; line-height: 1.5;"></p>
+            <p id="modalDesc" style="color: var(--texto-secundario); margin-bottom: 30px; line-height: 1.6;"></p>
             <button id="btnAgregar" class="btn-accion" onclick="agregarAlCarritoDesdeModal()">AGREGAR AL CARRITO</button>
         </div>
     </div>
@@ -268,8 +374,8 @@
     <div id="modalCarrito" class="modal-overlay">
         <div class="modal-content">
             <button class="btn-cerrar-modal" onclick="cerrarModal('modalCarrito')">✖</button>
-            <h2 style="font-family: 'Playfair Display'; color: var(--beige-oscuro);">Tu Pedido</h2>
-            <div id="contenido-carrito" style="text-align: left; margin: 20px 0;"></div>
+            <h2 style="font-family: 'Playfair Display'; color: var(--beige-oscuro); margin-bottom: 20px;">Tu Carrito Mayorista</h2>
+            <div id="contenido-carrito" style="text-align: left; margin: 20px 0; border-top: 1px solid #eee;"></div>
             <button class="btn-accion btn-ws-pedido" onclick="enviarPedidoWhatsApp()">FINALIZAR POR WHATSAPP</button>
         </div>
     </div>
@@ -279,7 +385,9 @@
     </a>
 
     <script>
+        // Prevenir scroll al inicio por el modal
         document.body.style.overflow = "hidden";
+
         let carrito = {};
         let productoActual = "";
         const NUMERO_CEL = "5491154034166";
@@ -294,9 +402,8 @@
             document.getElementById('modalDesc').innerText = desc;
             document.getElementById('modalPrecioViejo').innerText = precioV;
             document.getElementById('modalPrecioNuevo').innerText = precioN;
-            const imgTag = document.getElementById('modalImgTag');
             
-            // Si la ruta existe, la mostramos, sino ocultamos el tag
+            const imgTag = document.getElementById('modalImgTag');
             if(rutaImg) { 
                 imgTag.src = rutaImg; 
                 imgTag.style.display = 'block'; 
@@ -308,6 +415,7 @@
             const btn = document.getElementById('btnAgregar');
             btn.innerText = "AGREGAR AL CARRITO";
             btn.classList.remove('agregado');
+
             document.getElementById('modalProducto').classList.add('activo');
             document.body.style.overflow = "hidden";
         }
@@ -315,10 +423,14 @@
         function agregarAlCarritoDesdeModal() {
             carrito[productoActual] = (carrito[productoActual] || 0) + 1;
             actualizarContador();
+            
             const btn = document.getElementById('btnAgregar');
             btn.innerText = "✓ Producto agregado";
             btn.classList.add('agregado');
-            setTimeout(() => { cerrarModal('modalProducto'); }, 800);
+
+            setTimeout(() => {
+                cerrarModal('modalProducto');
+            }, 800);
         }
 
         function actualizarContador() {
@@ -332,23 +444,30 @@
             let contenedor = document.getElementById('contenido-carrito');
             contenedor.innerHTML = "";
             let keys = Object.keys(carrito);
+
             if (keys.length === 0) {
-                contenedor.innerHTML = "<p style='color:#888;'>Tu carrito está vacío.</p>";
+                contenedor.innerHTML = "<p style='color:#888; text-align:center; padding: 20px;'>Aún no agregaste productos.</p>";
             } else {
                 keys.forEach(prod => {
-                    contenedor.innerHTML += `<div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #eee;">
-                        <span>${prod}</span> <b>x${carrito[prod]}</b>
+                    contenedor.innerHTML += `
+                    <div style="display:flex; justify-content:space-between; align-items:center; padding:15px 0; border-bottom:1px solid #f9f9f9;">
+                        <span style="font-weight:600;">${prod}</span>
+                        <span style="background:var(--rosa-pastel); padding:4px 10px; border-radius:15px; font-size:0.9rem;">x ${carrito[prod]}</span>
                     </div>`;
                 });
             }
             document.getElementById('modalCarrito').classList.add('activo');
+            document.body.style.overflow = "hidden";
         }
 
         function enviarPedidoWhatsApp() {
             let keys = Object.keys(carrito);
             if (keys.length === 0) return;
-            let mensaje = "¡Hola Ame! 🌿 Este es mi pedido mayorista:\n\n";
-            keys.forEach(p => mensaje += `• ${carrito[p]}x ${p}\n`);
+            let mensaje = "¡Hola Ame! 🌿 Quiero realizar un pedido:\n\n";
+            keys.forEach(p => {
+                mensaje += `• ${p} (Cantidad: ${carrito[p]})\n`;
+            });
+            mensaje += "\n¿Me confirmarían el stock? ¡Gracias!";
             window.open(`https://wa.me/${NUMERO_CEL}?text=${encodeURIComponent(mensaje)}`, '_blank');
         }
     </script>
