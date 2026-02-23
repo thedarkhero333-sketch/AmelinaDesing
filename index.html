@@ -122,6 +122,7 @@
 
         .tarjeta-producto:hover { transform: translateY(-10px); }
 
+        .img-card { width: 100%; height: 260px; object-fit: cover; }
         .placeholder-foto { width: 100%; height: 260px; background-color: var(--verde-seco); display: flex; justify-content: center; align-items: center; color: var(--blanco); font-size: 0.8rem; }
         
         .info-producto { padding: 20px; text-align: center; }
@@ -141,6 +142,7 @@
             background: var(--blanco); padding: 40px; border-radius: 25px;
             max-width: 480px; width: 85%; text-align: center; position: relative;
             border: 4px solid var(--beige-oscuro);
+            max-height: 90vh; overflow-y: auto;
         }
 
         .btn-cerrar-modal { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; border: none; background: none; }
@@ -150,7 +152,7 @@
         .precio-tachado { text-decoration: line-through; color: #b0b0b0; font-size: 1.1rem; margin-right: 10px; }
         .precio-promo { color: #d17a7a; font-size: 1.6rem; font-weight: 700; }
 
-        #modalImg { width: 100%; height: 200px; background: var(--verde-seco); border-radius: 15px; margin-bottom: 20px; }
+        .img-modal-prod { width: 100%; height: auto; max-height: 300px; object-fit: cover; border-radius: 15px; margin-bottom: 20px; }
         
         .btn-accion { background: var(--texto-principal); color: var(--blanco); border: none; padding: 15px 30px; border-radius: 35px; cursor: pointer; font-weight: bold; width: 100%; font-size: 1rem; transition: 0.3s; }
         .btn-accion.agregado { background-color: var(--confirmacion); }
@@ -181,13 +183,13 @@
     <div id="modalProducto" class="modal-overlay">
         <div class="modal-content">
             <button class="btn-cerrar-modal" onclick="cerrarModal('modalProducto')">✖</button>
-            <div id="modalImg">Vista Previa</div>
+            <img id="modalImgTag" src="" alt="Producto" class="img-modal-prod">
             <h2 id="modalTitulo" style="font-family: 'Playfair Display'; color: var(--beige-oscuro);"></h2>
             <div class="precio-contenedor">
                 <span id="modalPrecioViejo" class="precio-tachado"></span>
                 <span id="modalPrecioNuevo" class="precio-promo"></span>
             </div>
-            <p id="modalDesc" style="color: var(--texto-secundario); margin-bottom: 25px;"></p>
+            <p id="modalDesc" style="color: var(--texto-secundario); margin-bottom: 25px; font-size: 0.95rem; line-height: 1.5;"></p>
             <button id="btnAgregar" class="btn-accion" onclick="agregarAlCarritoDesdeModal()">AGREGAR AL CARRITO</button>
         </div>
     </div>
@@ -211,7 +213,7 @@
             <nav>
                 <ul class="nav-menu">
                     <li><a href="#mantas">Mantas</a></li>
-                    <li><a href="#cortinas">Cortinas</a></li>
+                    <li><a href="#pillows">Pillows</a></li>
                     <li><a href="#ceramicas">Cerámicas</a></li>
                 </ul>
             </nav>
@@ -225,23 +227,22 @@
     <section id="mantas" class="seccion-catalogo">
         <h2 class="titulo-seccion">Mantas & Pies de Cama</h2>
         <div class="grid-productos">
-            <div class="tarjeta-producto" onclick="abrirProducto('Manta Gasa Pañalera', 'Manta 100% algodón, suave y ligera. 2x1.5m.', '$25.000', '$18.500')">
-                <div class="placeholder-foto" style="background-color: #e2d1c3;">FOTO PRODUCTO</div>
+            <div class="tarjeta-producto" onclick="abrirProducto('Manta Gasa Pañalera', 'Manta 100% algodón, suave y ligera. 2x1.5m.', '$25.000', '$18.500', 'placeholder')">
+                <div class="placeholder-foto">FOTO PRODUCTO</div>
                 <div class="info-producto"><h3>Manta Gasa Pañalera</h3><button class="btn-ver-mas">Ver detalle</button></div>
-            </div>
-            <div class="tarjeta-producto" onclick="abrirProducto('Manta Nido de Abeja', 'Textura clásica premium. Ideal para decoración.', '$22.000', '$16.900')">
-                <div class="placeholder-foto" style="background-color: #d4e2d4;">FOTO PRODUCTO</div>
-                <div class="info-producto"><h3>Manta Nido de Abeja</h3><button class="btn-ver-mas">Ver detalle</button></div>
             </div>
         </div>
     </section>
 
-    <section id="cortinas" class="seccion-catalogo">
-        <h2 class="titulo-seccion">Cortinas</h2>
+    <section id="pillows" class="seccion-catalogo">
+        <h2 class="titulo-seccion">Pillows</h2>
         <div class="grid-productos">
-            <div class="tarjeta-producto" onclick="abrirProducto('Juego Cortinas Gasa', '2 paños de gasa de algodón. Tonos pasteles.', '$30.000', '$24.000')">
-                <div class="placeholder-foto" style="background-color: #eae0d5;">FOTO PRODUCTO</div>
-                <div class="info-producto"><h3>Cortinas de Gasa</h3><button class="btn-ver-mas">Ver detalle</button></div>
+            <div class="tarjeta-producto" onclick="abrirProducto('Pillows Premium', 'Ese producto que no te puede faltar en tu pedido MAYORISTA, son de gran demanda, se usan todo el año y tus clientes LOS AMAN créeme!\n\nEstos son solo algunos de los colores que podes pedir, los más lindos y los mas neutros.', '$18.000', '$12.500', 'img/productos/pillows.png')">
+                <img src="img/productos/pillows.png" alt="Pillows" class="img-card">
+                <div class="info-producto">
+                    <h3>Pillows Premium</h3>
+                    <button class="btn-ver-mas">Ver detalle</button>
+                </div>
             </div>
         </div>
     </section>
@@ -249,8 +250,8 @@
     <section id="ceramicas" class="seccion-catalogo" style="margin-bottom: 80px;">
         <h2 class="titulo-seccion">Cerámicas</h2>
         <div class="grid-productos">
-            <div class="tarjeta-producto" onclick="abrirProducto('Set Tazas Orgánicas', 'Cerámica artesanal esmaltada mate. Pack x12.', '$15.000', '$11.200')">
-                <div class="placeholder-foto" style="background-color: #d5dada;">FOTO PRODUCTO</div>
+            <div class="tarjeta-producto" onclick="abrirProducto('Set Tazas Orgánicas', 'Cerámica artesanal esmaltada mate. Pack x12.', '$15.000', '$11.200', 'placeholder')">
+                <div class="placeholder-foto">FOTO PRODUCTO</div>
                 <div class="info-producto"><h3>Set Tazas Orgánicas</h3><button class="btn-ver-mas">Ver detalle</button></div>
             </div>
         </div>
@@ -267,14 +268,22 @@
             document.body.style.overflow = "auto";
         }
 
-        function abrirProducto(titulo, desc, precioV, precioN) {
+        function abrirProducto(titulo, desc, precioV, precioN, rutaImg) {
             document.getElementById('modalTitulo').innerText = titulo;
             document.getElementById('modalDesc').innerText = desc;
             document.getElementById('modalPrecioViejo').innerText = precioV;
             document.getElementById('modalPrecioNuevo').innerText = precioN;
-            productoActual = titulo;
             
-            // Reset del botón al abrir
+            // Lógica para la imagen en el modal
+            const imgTag = document.getElementById('modalImgTag');
+            if(rutaImg === 'placeholder') {
+                imgTag.style.display = 'none';
+            } else {
+                imgTag.src = rutaImg;
+                imgTag.style.display = 'block';
+            }
+
+            productoActual = titulo;
             const btn = document.getElementById('btnAgregar');
             btn.innerText = "AGREGAR AL CARRITO";
             btn.classList.remove('agregado');
@@ -286,16 +295,10 @@
         function agregarAlCarritoDesdeModal() {
             carrito[productoActual] = (carrito[productoActual] || 0) + 1;
             actualizarContador();
-            
-            // Cambio visual en el botón
             const btn = document.getElementById('btnAgregar');
             btn.innerText = "✓ Producto agregado";
             btn.classList.add('agregado');
-
-            // Cerrar después de 1 segundo para que vean el cambio
-            setTimeout(() => {
-                cerrarModal('modalProducto');
-            }, 800);
+            setTimeout(() => { cerrarModal('modalProducto'); }, 800);
         }
 
         function actualizarContador() {
@@ -309,7 +312,6 @@
             let contenedor = document.getElementById('contenido-carrito');
             contenedor.innerHTML = "";
             let keys = Object.keys(carrito);
-
             if (keys.length === 0) {
                 contenedor.innerHTML = "<p style='color:#888;'>Tu carrito está vacío.</p>";
             } else {
