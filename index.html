@@ -21,7 +21,7 @@
             color: var(--texto);
         }
 
-        /* --- ESTILOS DE LA PÁGINA DE FONDO --- */
+        /* --- ESTILOS DE LA PÁGINA --- */
         .navbar {
             padding: 20px;
             background: var(--blanco);
@@ -41,29 +41,27 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5); /* Fondo oscurecido */
+            background: rgba(0, 0, 0, 0.6);
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
-            transition: opacity 0.3s ease;
+            z-index: 2000;
         }
 
         .modal-content {
             background: var(--rosa-pastel);
             padding: 40px;
             border-radius: 20px;
-            max-width: 500px;
-            width: 90%;
+            max-width: 450px;
+            width: 85%;
             text-align: center;
-            position: relative;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            border: 4px solid var(--blanco);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            border: 5px solid var(--blanco);
         }
 
         .modal-content h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             color: #b56b6b;
             margin-top: 0;
         }
@@ -83,7 +81,7 @@
         }
 
         .destacado {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: #d17a7a;
             display: block;
@@ -98,15 +96,35 @@
             border-radius: 25px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 1rem;
-            transition: background 0.3s;
+            transition: transform 0.2s;
         }
 
         .btn-cerrar:hover {
-            background: #333;
+            transform: scale(1.05);
         }
 
-        /* Clase para ocultar el modal */
+        /* --- BOTÓN WHATSAPP FLOTANTE --- */
+        .btn-whatsapp {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            z-index: 1000;
+            transition: transform 0.3s;
+        }
+
+        .btn-whatsapp:hover {
+            transform: scale(1.1);
+        }
+
+        .btn-whatsapp img {
+            width: 100%;
+            height: 100%;
+            /* Filtro opcional para suavizar el verde si desentona mucho con los pasteles */
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2));
+        }
+
         .hidden {
             display: none;
         }
@@ -117,28 +135,34 @@
 
     <div id="miModal" class="modal-overlay">
         <div class="modal-content">
-            <h2>¡Súper Liquidación!</h2>
-            <p>Aprovechá esta oportunidad única para tu negocio.</p>
+            <h2>¡Liquidación!</h2>
+            <p>Especial para Revendedores</p>
             
             <div class="oferta-box">
                 <span class="tachado">Mínimo de compra: $300.000</span>
-                <span class="destacado">¡LLEVÁ DESDE SOLO 4 PRENDAS!</span>
+                <span class="destacado">¡LLEVÁ DESDE 4 PRODUCTOS!</span>
             </div>
 
-            <p><strong>🔥 Válido hasta el 28 de Febrero</strong></p>
+            <p><strong>🔥 Hasta el 28 de Febrero</strong></p>
             
-            <button class="btn-cerrar" onclick="cerrarModal()">INGRESAR A LA TIENDA</button>
+            <button class="btn-cerrar" onclick="cerrarModal()">INGRESAR</button>
         </div>
     </div>
 
+    <a href="https://wa.me/123456789" class="btn-whatsapp" target="_blank">
+        <img src="img/whats.png" alt="Chat con Mayorista">
+    </a>
+
     <nav class="navbar">
-        <h1 style="font-family: 'Playfair Display'; margin:0;">TEXTIL MAYORISTA</h1>
+        <h1 style="font-family: 'Playfair Display'; margin:0; letter-spacing: 2px;">TEXTIL MAYORISTA</h1>
     </nav>
 
     <section class="hero-main">
-        <h2>Bienvenido a nuestra Colección</h2>
-        <p>Calidad textil en tonos tierra y pasteles para tu marca.</p>
-        <div style="margin-top: 40px; color: #aaa;">(Aquí irán tus productos pronto...)</div>
+        <h2>Catálogo Mayorista</h2>
+        <p>Textiles seleccionados en colores beige y pasteles.</p>
+        <div style="margin-top: 60px; border: 1px dashed var(--beige-oscuro); padding: 40px; border-radius: 10px;">
+            Aquí empezaremos a colocar las tarjetas de tus productos.
+        </div>
     </section>
 
     <script>
