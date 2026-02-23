@@ -6,7 +6,7 @@
     <title>Ame - Mayorista Textil y Deco</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <style>
-        /* --- PALETA DE COLORES PROFESIONAL --- */
+        /* --- PALETA DE COLORES --- */
         :root {
             --beige-claro: #fcfbf9;
             --beige-medio: #eae0d5;
@@ -16,6 +16,7 @@
             --texto-principal: #333333;
             --texto-secundario: #5c5c5c;
             --blanco: #ffffff;
+            --alerta-rojo: #e06666; /* Para el contador del carrito */
         }
 
         body {
@@ -24,10 +25,10 @@
             background-color: var(--beige-claro);
             color: var(--texto-principal);
             overflow-x: hidden;
-            scroll-behavior: smooth; /* Para que el menú baje suavemente */
+            scroll-behavior: smooth;
         }
 
-        /* --- BARRA DE NAVEGACIÓN (HEADER) --- */
+        /* --- HEADER Y CARRITO --- */
         .header {
             background-color: var(--blanco);
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
@@ -40,10 +41,12 @@
             padding: 15px 50px;
         }
 
-        .logo-img {
-            max-height: 50px;
-            width: auto;
-            cursor: pointer;
+        .logo-img { max-height: 50px; width: auto; cursor: pointer; }
+
+        .header-derecha {
+            display: flex;
+            align-items: center;
+            gap: 40px;
         }
 
         .nav-menu {
@@ -64,30 +67,41 @@
             transition: color 0.3s;
         }
 
-        .nav-menu li a:hover {
-            color: var(--beige-oscuro);
+        .nav-menu li a:hover { color: var(--beige-oscuro); }
+
+        /* Icono del Carrito */
+        .contenedor-carrito {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .contenedor-carrito:hover { transform: scale(1.1); }
+
+        .img-carrito {
+            width: 35px;
+            height: auto;
         }
 
-        /* --- SECCIONES DE CATÁLOGO --- */
-        .seccion-catalogo {
-            padding: 60px 50px;
-            max-width: 1200px;
-            margin: 0 auto;
+        .badge-carrito {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background-color: var(--alerta-rojo);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 3px 7px;
+            border-radius: 50%;
+            display: none; /* Se oculta si está en 0 */
         }
 
-        .titulo-seccion {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            color: var(--beige-oscuro);
-            border-bottom: 2px solid var(--rosa-pastel);
-            padding-bottom: 10px;
-            margin-bottom: 40px;
-        }
-
-        /* --- GRILLA DE PRODUCTOS --- */
+        /* --- SECCIONES Y GRILLA --- */
+        .seccion-catalogo { padding: 60px 50px; max-width: 1200px; margin: 0 auto; }
+        .titulo-seccion { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--beige-oscuro); border-bottom: 2px solid var(--rosa-pastel); padding-bottom: 10px; margin-bottom: 40px; }
+        
         .grid-productos {
             display: grid;
-            /* Esto hace que entren las tarjetas que quepan, mínimo 250px de ancho */
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 30px;
         }
@@ -102,123 +116,52 @@
             cursor: pointer;
         }
 
-        .tarjeta-producto:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.08);
-        }
+        .tarjeta-producto:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.08); }
 
-        /* Aquí irán las fotos en el futuro */
-        .placeholder-foto {
-            width: 100%;
-            height: 250px;
-            background-color: var(--verde-seco);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--blanco);
-            font-weight: 600;
-        }
+        .placeholder-foto { width: 100%; height: 250px; background-color: var(--verde-seco); display: flex; justify-content: center; align-items: center; color: var(--blanco); font-weight: 600; }
+        .info-producto { padding: 20px; text-align: center; }
+        .info-producto h3 { margin: 0 0 10px 0; font-size: 1.2rem; }
+        
+        .btn-ver-mas { background-color: var(--beige-medio); color: var(--texto-principal); border: none; padding: 10px 20px; border-radius: 20px; font-weight: 600; cursor: pointer; margin-top: 10px; width: 100%; transition: 0.3s; }
+        .tarjeta-producto:hover .btn-ver-mas { background-color: var(--beige-oscuro); color: var(--blanco); }
 
-        .info-producto {
-            padding: 20px;
-            text-align: center;
-        }
-
-        .info-producto h3 {
-            margin: 0 0 10px 0;
-            font-size: 1.2rem;
-            color: var(--texto-principal);
-        }
-
-        .btn-ver-mas {
-            background-color: var(--beige-medio);
-            color: var(--texto-principal);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: background 0.3s;
-            width: 100%;
-        }
-
-        .tarjeta-producto:hover .btn-ver-mas {
-            background-color: var(--beige-oscuro);
-            color: var(--blanco);
-        }
-
-        /* --- MODALES (OFERTA Y PRODUCTO) --- */
+        /* --- MODALES --- */
         .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 3000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center;
+            z-index: 3000; opacity: 0; visibility: hidden; transition: 0.3s ease;
         }
-
-        /* Clase para mostrar el modal con animación */
-        .modal-overlay.activo {
-            opacity: 1;
-            visibility: visible;
-        }
+        .modal-overlay.activo { opacity: 1; visibility: visible; }
 
         .modal-content {
-            background: var(--blanco);
-            padding: 40px;
-            border-radius: 20px;
-            max-width: 500px;
-            width: 85%;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            position: relative;
-            border: 4px solid var(--rosa-pastel);
+            background: var(--blanco); padding: 40px; border-radius: 20px;
+            max-width: 500px; width: 85%; text-align: center; position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2); border: 4px solid var(--beige-oscuro);
+            max-height: 80vh; overflow-y: auto;
         }
 
-        .btn-cerrar-modal {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--texto-secundario);
-            background: none;
-            border: none;
-        }
-
-        /* Estilos específicos Modal Producto */
-        #modalProducto .modal-content { border-color: var(--beige-oscuro); }
+        .btn-cerrar-modal { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: var(--texto-secundario); background: none; border: none; }
+        
+        /* Modal Producto */
         #modalImg { width: 100%; height: 200px; background: var(--verde-seco); border-radius: 10px; margin-bottom: 20px; }
         #modalTitulo { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--beige-oscuro); margin-bottom: 10px; }
         #modalDesc { color: var(--texto-secundario); line-height: 1.6; margin-bottom: 20px; }
-        .btn-accion { background: var(--texto-principal); color: var(--blanco); border: none; padding: 12px 30px; border-radius: 30px; cursor: pointer; font-weight: bold; width: 100%; font-size: 1rem; }
+        
+        /* Botones Acción */
+        .btn-accion { background: var(--texto-principal); color: var(--blanco); border: none; padding: 12px 30px; border-radius: 30px; cursor: pointer; font-weight: bold; width: 100%; font-size: 1rem; transition: 0.3s;}
         .btn-accion:hover { background: var(--beige-oscuro); }
+        .btn-ws { background: #25D366; margin-top: 15px; }
+        .btn-ws:hover { background: #1ebe5d; }
 
-        /* --- WHATSAPP --- */
-        .btn-whatsapp {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            width: 60px;
-            height: 60px;
-            z-index: 2000;
-            transition: transform 0.3s;
-        }
-        .btn-whatsapp:hover { transform: scale(1.1); }
-        .btn-whatsapp img { width: 100%; height: 100%; }
+        /* Modal Carrito (Lista de items) */
+        .lista-carrito-ul { list-style: none; padding: 0; margin-bottom: 20px; text-align: left; }
+        .lista-carrito-ul li { padding: 15px 0; border-bottom: 1px solid var(--rosa-pastel); display: flex; justify-content: space-between; font-weight: 600;}
+        .carrito-vacio { color: var(--texto-secundario); font-style: italic; margin-bottom: 20px;}
 
         /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
             .header { flex-direction: column; gap: 15px; padding: 15px; }
+            .header-derecha { width: 100%; justify-content: space-around; }
             .nav-menu { flex-wrap: wrap; justify-content: center; gap: 15px; }
             .seccion-catalogo { padding: 40px 20px; }
         }
@@ -227,7 +170,7 @@
 <body>
 
     <div id="modalOferta" class="modal-overlay activo">
-        <div class="modal-content" style="background: var(--rosa-pastel);">
+        <div class="modal-content" style="background: var(--rosa-pastel); border-color: var(--blanco);">
             <h2 style="font-family: 'Playfair Display'; font-size: 2.5rem; color: #b56b6b; margin: 0;">¡Liquidación!</h2>
             <div style="background: white; padding: 25px; border-radius: 20px; margin: 20px 0;">
                 <span style="text-decoration: line-through; color: #b0b0b0; display: block;">Mínimo: $300.000</span>
@@ -240,54 +183,59 @@
 
     <div id="modalProducto" class="modal-overlay">
         <div class="modal-content">
-            <button class="btn-cerrar-modal" onclick="cerrarModalProducto()">✖</button>
+            <button class="btn-cerrar-modal" onclick="cerrarModal('modalProducto')">✖</button>
             <div id="modalImg">Foto del Producto</div>
             <h2 id="modalTitulo">Nombre Producto</h2>
-            <p id="modalDesc">Descripción detallada del producto...</p>
-            <button class="btn-accion" onclick="comprarPorWhatsApp()">CONSULTAR PRECIO Y STOCK</button>
+            <p id="modalDesc">Descripción...</p>
+            <button class="btn-accion" onclick="agregarAlCarritoDesdeModal()">AGREGAR AL CARRITO</button>
         </div>
     </div>
 
-    <a href="https://wa.me/tu_numero" class="btn-whatsapp" target="_blank" id="btnWhats">
-        <img src="img/whats.png" alt="WhatsApp">
-    </a>
+    <div id="modalCarrito" class="modal-overlay">
+        <div class="modal-content">
+            <button class="btn-cerrar-modal" onclick="cerrarModal('modalCarrito')">✖</button>
+            <h2 style="font-family: 'Playfair Display'; font-size: 2rem; color: var(--beige-oscuro); margin-top: 0;">Tu Pedido Mayorista</h2>
+            
+            <div id="contenido-carrito">
+                </div>
+
+            <button class="btn-accion btn-ws" onclick="enviarPedidoWhatsApp()">ENVIAR PEDIDO POR WHATSAPP</button>
+        </div>
+    </div>
 
     <header class="header">
         <a href="#">
             <img src="img/ame.png" alt="Logo Ame" class="logo-img">
         </a>
-        <nav>
-            <ul class="nav-menu">
-                <li><a href="#mantas">Mantas</a></li>
-                <li><a href="#cortinas">Cortinas</a></li>
-                <li><a href="#ceramicas">Cerámicas</a></li>
-            </ul>
-        </nav>
+        <div class="header-derecha">
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#mantas">Mantas</a></li>
+                    <li><a href="#cortinas">Cortinas</a></li>
+                    <li><a href="#ceramicas">Cerámicas</a></li>
+                </ul>
+            </nav>
+            <div class="contenedor-carrito" onclick="abrirCarrito()">
+                <img src="img/carrito.png" alt="Mi Carrito" class="img-carrito">
+                <span class="badge-carrito" id="contador-carrito">0</span>
+            </div>
+        </div>
     </header>
 
     <section id="mantas" class="seccion-catalogo">
         <h2 class="titulo-seccion">Mantas & Pies de Cama</h2>
         <div class="grid-productos">
-            <div class="tarjeta-producto" onclick="abrirProducto('Manta Gasa Pañalera', 'Manta 100% algodón, ideal para pie de cama o sillón. Súper suave y lavable. Medidas: 2x1.5m. Colores pasteles surtidos para mayoristas.')">
+            <div class="tarjeta-producto" onclick="abrirProducto('Manta Gasa Pañalera', 'Manta 100% algodón, ideal para pie de cama o sillón. Súper suave y lavable. Medidas: 2x1.5m.')">
                 <div class="placeholder-foto" style="background-color: #e2d1c3;">Espacio para Foto</div>
-                <div class="info-producto">
-                    <h3>Manta Gasa Pañalera</h3>
-                    <button class="btn-ver-mas">Ver detalle</button>
-                </div>
+                <div class="info-producto"><h3>Manta Gasa Pañalera</h3><button class="btn-ver-mas">Ver detalle</button></div>
             </div>
             <div class="tarjeta-producto" onclick="abrirProducto('Manta Nido de Abeja', 'Textura clásica y elegante. Excelente caída. Ventas por curva de color o bulto cerrado.')">
                 <div class="placeholder-foto" style="background-color: #d4e2d4;">Espacio para Foto</div>
-                <div class="info-producto">
-                    <h3>Manta Nido de Abeja</h3>
-                    <button class="btn-ver-mas">Ver detalle</button>
-                </div>
+                <div class="info-producto"><h3>Manta Nido de Abeja</h3><button class="btn-ver-mas">Ver detalle</button></div>
             </div>
             <div class="tarjeta-producto" onclick="abrirProducto('Pie de Cama Tussor', 'Tussor pre-lavado con flecos artesanales. Alta rentabilidad para reventa.')">
                 <div class="placeholder-foto" style="background-color: #f7d9d9;">Espacio para Foto</div>
-                <div class="info-producto">
-                    <h3>Pie de Cama Tussor</h3>
-                    <button class="btn-ver-mas">Ver detalle</button>
-                </div>
+                <div class="info-producto"><h3>Pie de Cama Tussor</h3><button class="btn-ver-mas">Ver detalle</button></div>
             </div>
         </div>
     </section>
@@ -295,19 +243,13 @@
     <section id="cortinas" class="seccion-catalogo">
         <h2 class="titulo-seccion">Cortinas</h2>
         <div class="grid-productos">
-            <div class="tarjeta-producto" onclick="abrirProducto('Juego Cortinas Gasa', 'Juego de 2 paños de gasa de algodón. Dejan pasar la luz creando un ambiente cálido. Ideales para living.')">
+            <div class="tarjeta-producto" onclick="abrirProducto('Juego Cortinas Gasa', 'Juego de 2 paños de gasa de algodón. Dejan pasar la luz creando un ambiente cálido.')">
                 <div class="placeholder-foto" style="background-color: #eae0d5;">Espacio para Foto</div>
-                <div class="info-producto">
-                    <h3>Cortinas de Gasa</h3>
-                    <button class="btn-ver-mas">Ver detalle</button>
-                </div>
+                <div class="info-producto"><h3>Cortinas de Gasa</h3><button class="btn-ver-mas">Ver detalle</button></div>
             </div>
-            <div class="tarjeta-producto" onclick="abrirProducto('Cortinas Blackout Textil', 'Bloqueo 100% de luz con terminación en tela (no plástica). Colores beige y tiza.')">
+            <div class="tarjeta-producto" onclick="abrirProducto('Blackout Textil Premium', 'Bloqueo 100% de luz con terminación en tela. Colores beige y tiza.')">
                 <div class="placeholder-foto" style="background-color: #c6ac8f;">Espacio para Foto</div>
-                <div class="info-producto">
-                    <h3>Blackout Textil Premium</h3>
-                    <button class="btn-ver-mas">Ver detalle</button>
-                </div>
+                <div class="info-producto"><h3>Blackout Textil Premium</h3><button class="btn-ver-mas">Ver detalle</button></div>
             </div>
         </div>
     </section>
@@ -315,56 +257,116 @@
     <section id="ceramicas" class="seccion-catalogo" style="margin-bottom: 50px;">
         <h2 class="titulo-seccion">Línea Cerámica Deco</h2>
         <div class="grid-productos">
-            <div class="tarjeta-producto" onclick="abrirProducto('Tazas de Cerámica Artesanal', 'Diseño orgánico en tonos tierra. Esmaltado mate. Cajas x 12 unidades.')">
+            <div class="tarjeta-producto" onclick="abrirProducto('Set Tazas Orgánicas', 'Diseño orgánico en tonos tierra. Esmaltado mate. Cajas x 12 unidades.')">
                 <div class="placeholder-foto" style="background-color: #d5dada;">Espacio para Foto</div>
-                <div class="info-producto">
-                    <h3>Set Tazas Orgánicas</h3>
-                    <button class="btn-ver-mas">Ver detalle</button>
-                </div>
+                <div class="info-producto"><h3>Set Tazas Orgánicas</h3><button class="btn-ver-mas">Ver detalle</button></div>
             </div>
-            <div class="tarjeta-producto" onclick="abrirProducto('Floreros Minimalistas', 'Piezas de cerámica ideales para flores secas. Perfectos para armar combos deco en tu tienda.')">
+            <div class="tarjeta-producto" onclick="abrirProducto('Floreros Minimalistas', 'Piezas de cerámica ideales para flores secas. Perfectos para combos deco.')">
                 <div class="placeholder-foto" style="background-color: #f4ecec;">Espacio para Foto</div>
-                <div class="info-producto">
-                    <h3>Floreros Minimalistas</h3>
-                    <button class="btn-ver-mas">Ver detalle</button>
-                </div>
+                <div class="info-producto"><h3>Floreros Minimalistas</h3><button class="btn-ver-mas">Ver detalle</button></div>
             </div>
         </div>
     </section>
 
     <script>
-        // 1. Manejo del Modal de Oferta Inicial
-        // Se bloquea el scroll al inicio para que miren la oferta
+        // Bloqueo de scroll para el banner inicial
         document.body.style.overflow = "hidden";
 
         function cerrarModalOferta() {
             document.getElementById('modalOferta').classList.remove('activo');
-            document.body.style.overflow = "auto"; // Devuelve el scroll
-        }
-
-        // 2. Manejo del Modal de Productos
-        let productoActual = ""; // Guarda el nombre del producto que están mirando
-
-        function abrirProducto(titulo, descripcion) {
-            // Llenamos el modal con la info que recibe el click
-            document.getElementById('modalTitulo').innerText = titulo;
-            document.getElementById('modalDesc').innerText = descripcion;
-            productoActual = titulo;
-
-            // Mostramos el modal
-            document.getElementById('modalProducto').classList.add('activo');
-            document.body.style.overflow = "hidden"; // Oculta el scroll de fondo
-        }
-
-        function cerrarModalProducto() {
-            document.getElementById('modalProducto').classList.remove('activo');
             document.body.style.overflow = "auto";
         }
 
-        // 3. Botón dentro del modal que manda directo a WhatsApp con el nombre del producto
-        function comprarPorWhatsApp() {
-            let numero = "tu_numero"; // ACA PONES TU NUMERO (ej: 5491122334455)
-            let mensaje = "¡Hola Ame! Quería consultar stock y precios mayoristas por el siguiente producto: " + productoActual;
+        function cerrarModal(id) {
+            document.getElementById(id).classList.remove('activo');
+            document.body.style.overflow = "auto";
+        }
+
+        // --- LÓGICA DEL CARRITO ---
+        let carrito = {}; // Objeto para guardar { "Nombre Producto": cantidad }
+        let productoActual = ""; // Variable temporal
+
+        // Abre la info del producto
+        function abrirProducto(titulo, descripcion) {
+            document.getElementById('modalTitulo').innerText = titulo;
+            document.getElementById('modalDesc').innerText = descripcion;
+            productoActual = titulo;
+            document.getElementById('modalProducto').classList.add('activo');
+            document.body.style.overflow = "hidden";
+        }
+
+        // Agrega al carrito desde la ventana del producto
+        function agregarAlCarritoDesdeModal() {
+            if (carrito[productoActual]) {
+                carrito[productoActual]++; // Si ya existe, suma 1
+            } else {
+                carrito[productoActual] = 1; // Si no existe, lo crea con cantidad 1
+            }
+            
+            actualizarContadorCarrito();
+            cerrarModal('modalProducto');
+            
+            // Pequeño aviso visual opcional
+            alert("¡Agregado al carrito: " + productoActual + "!");
+        }
+
+        // Actualiza el número rojo arriba del carrito
+        function actualizarContadorCarrito() {
+            let totalItems = 0;
+            for (let prod in carrito) {
+                totalItems += carrito[prod];
+            }
+            
+            let badge = document.getElementById('contador-carrito');
+            if (totalItems > 0) {
+                badge.style.display = 'inline-block';
+                badge.innerText = totalItems;
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        // Abre la ventana para ver qué elegimos
+        function abrirCarrito() {
+            let contenedor = document.getElementById('contenido-carrito');
+            contenedor.innerHTML = ""; // Limpiamos lo anterior
+
+            let totalItems = Object.keys(carrito).length;
+
+            if (totalItems === 0) {
+                contenedor.innerHTML = "<p class='carrito-vacio'>Aún no agregaste productos a tu pedido.</p>";
+            } else {
+                let ul = document.createElement('ul');
+                ul.className = 'lista-carrito-ul';
+                
+                for (let prod in carrito) {
+                    let li = document.createElement('li');
+                    li.innerHTML = `<span>${prod}</span> <span style="color: var(--beige-oscuro);">x${carrito[prod]}</span>`;
+                    ul.appendChild(li);
+                }
+                contenedor.appendChild(ul);
+            }
+
+            document.getElementById('modalCarrito').classList.add('activo');
+            document.body.style.overflow = "hidden";
+        }
+
+        // Envía todo armadito al WhatsApp
+        function enviarPedidoWhatsApp() {
+            if (Object.keys(carrito).length === 0) {
+                alert("Tu carrito está vacío. ¡Agrega productos primero!");
+                return;
+            }
+
+            let numero = "tu_numero"; // REEMPLAZAR POR TU NUMERO EJ: 5491100000000
+            let mensaje = "¡Hola Ame! 🌿 Quiero hacer el siguiente pedido mayorista:\n\n";
+            
+            for (let prod in carrito) {
+                mensaje += `✅ ${carrito[prod]}x - ${prod}\n`;
+            }
+            
+            mensaje += "\nEspero su respuesta para coordinar pago y envío. ¡Gracias!";
+            
             let url = "https://wa.me/" + numero + "?text=" + encodeURIComponent(mensaje);
             window.open(url, '_blank');
         }
