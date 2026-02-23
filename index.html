@@ -12,6 +12,7 @@
             --rosa-pastel: #f7d9d9;
             --texto: #4a4a4a;
             --blanco: #ffffff;
+            --verde-wa: #25d366;
         }
 
         body {
@@ -19,6 +20,7 @@
             font-family: 'Montserrat', sans-serif;
             background-color: var(--beige-fondo);
             color: var(--texto);
+            overflow-x: hidden;
         }
 
         /* --- ESTILOS DE LA PÁGINA --- */
@@ -27,106 +29,113 @@
             background: var(--blanco);
             text-align: center;
             border-bottom: 1px solid var(--beige-oscuro);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .hero-main {
-            padding: 100px 20px;
+            padding: 80px 20px;
             text-align: center;
+            min-height: 100vh;
         }
 
-        /* --- ESTILOS DEL MODAL (VENTANITA) --- */
+        /* --- VENTANA EMERGENTE (MODAL) --- */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.7);
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 2000;
+            z-index: 3000; /* Por encima de todo */
         }
 
         .modal-content {
             background: var(--rosa-pastel);
             padding: 40px;
-            border-radius: 20px;
+            border-radius: 25px;
             max-width: 450px;
             width: 85%;
             text-align: center;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-            border: 5px solid var(--blanco);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 6px solid var(--blanco);
+            animation: fadeIn 0.5s ease;
         }
 
-        .modal-content h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            color: #b56b6b;
-            margin-top: 0;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .oferta-box {
             background: var(--blanco);
-            padding: 20px;
-            border-radius: 15px;
+            padding: 25px;
+            border-radius: 20px;
             margin: 20px 0;
         }
 
         .tachado {
             text-decoration: line-through;
-            color: #999;
+            color: #b0b0b0;
             font-size: 1.1rem;
             display: block;
+            margin-bottom: 5px;
         }
 
         .destacado {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             font-weight: 700;
             color: #d17a7a;
             display: block;
-            margin-top: 5px;
+            line-height: 1.2;
         }
 
         .btn-cerrar {
             background: var(--texto);
             color: white;
             border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
+            padding: 15px 40px;
+            border-radius: 30px;
             cursor: pointer;
             font-weight: bold;
-            transition: transform 0.2s;
+            font-size: 1rem;
+            transition: all 0.3s;
+            margin-top: 10px;
         }
 
         .btn-cerrar:hover {
+            background: #000;
             transform: scale(1.05);
         }
 
         /* --- BOTÓN WHATSAPP FLOTANTE --- */
         .btn-whatsapp {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            z-index: 1000;
-            transition: transform 0.3s;
+            bottom: 25px;
+            right: 25px;
+            width: 65px;
+            height: 65px;
+            z-index: 2000; /* Por debajo del modal, pero arriba del contenido */
+            transition: transform 0.3s ease;
         }
 
         .btn-whatsapp:hover {
-            transform: scale(1.1);
+            transform: scale(1.15) rotate(5deg);
         }
 
         .btn-whatsapp img {
             width: 100%;
             height: 100%;
-            /* Filtro opcional para suavizar el verde si desentona mucho con los pasteles */
-            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2));
+            object-fit: contain;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
         }
 
         .hidden {
-            display: none;
+            display: none !important;
         }
 
     </style>
@@ -135,40 +144,46 @@
 
     <div id="miModal" class="modal-overlay">
         <div class="modal-content">
-            <h2>¡Liquidación!</h2>
-            <p>Especial para Revendedores</p>
+            <h2 style="font-family: 'Playfair Display'; font-size: 2.5rem; color: #b56b6b; margin: 0;">¡Liquidación!</h2>
+            <p style="font-weight: 300; letter-spacing: 1px;">SÓLO PARA VENTA MAYORISTA</p>
             
             <div class="oferta-box">
                 <span class="tachado">Mínimo de compra: $300.000</span>
-                <span class="destacado">¡LLEVÁ DESDE 4 PRODUCTOS!</span>
+                <span class="destacado">¡LLEVÁ DESDE SOLO <br>4 PRODUCTOS!</span>
             </div>
 
-            <p><strong>🔥 Hasta el 28 de Febrero</strong></p>
+            <p style="color: #d17a7a;"><strong>🔥 Válido hasta el 28 de Febrero</strong></p>
             
-            <button class="btn-cerrar" onclick="cerrarModal()">INGRESAR</button>
+            <button class="btn-cerrar" onclick="cerrarModal()">INGRESAR A LA TIENDA</button>
         </div>
     </div>
 
-    <a href="https://wa.me/123456789" class="btn-whatsapp" target="_blank">
-        <img src="img/whats" alt="Chat con Mayorista">
+    <a href="https://wa.me/tu_numero_aqui" class="btn-whatsapp" target="_blank">
+        <img src="img/whats" alt="WhatsApp"> 
     </a>
 
     <nav class="navbar">
-        <h1 style="font-family: 'Playfair Display'; margin:0; letter-spacing: 2px;">TEXTIL MAYORISTA</h1>
+        <h1 style="font-family: 'Playfair Display'; margin:0; letter-spacing: 3px; font-size: 1.5rem;">TEXTIL MAYORISTA</h1>
     </nav>
 
     <section class="hero-main">
-        <h2>Catálogo Mayorista</h2>
-        <p>Textiles seleccionados en colores beige y pasteles.</p>
-        <div style="margin-top: 60px; border: 1px dashed var(--beige-oscuro); padding: 40px; border-radius: 10px;">
-            Aquí empezaremos a colocar las tarjetas de tus productos.
+        <h2 style="font-family: 'Playfair Display'; font-size: 2.5rem;">Nuestra Colección</h2>
+        <p>Calidad premium en tonos pasteles y tierra.</p>
+        
+        <div style="margin-top: 50px; opacity: 0.6;">
+            <p>Próximamente verás nuestro catálogo aquí...</p>
         </div>
     </section>
 
     <script>
         function cerrarModal() {
             document.getElementById('miModal').classList.add('hidden');
+            // Opcional: Permitir scroll después de cerrar el modal
+            document.body.style.overflow = "auto";
         }
+        
+        // Evitar scroll mientras el modal está abierto
+        document.body.style.overflow = "hidden";
     </script>
 
 </body>
