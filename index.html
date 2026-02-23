@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Textil Mayorista | Ofertas de Temporada</title>
+    <title>Textil Mayorista | Tienda Oficial</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
     <style>
-        /* Paleta de colores y variables */
         :root {
             --beige-fondo: #f5f5dc;
-            --beige-oscuro: #e2d1c3;
+            --beige-oscuro: #d2b48c;
             --rosa-pastel: #f7d9d9;
-            --verde-menta: #d4e2d4;
-            --texto: #5a5a5a;
-            --acento-oferta: #e6a4a4;
+            --texto: #4a4a4a;
+            --blanco: #ffffff;
         }
 
         body {
@@ -23,132 +21,131 @@
             color: var(--texto);
         }
 
-        /* Cartel de Liquidación (Hero Section) */
-        .banner-liquidacion {
-            background-color: var(--rosa-pastel);
-            padding: 60px 20px;
+        /* --- ESTILOS DE LA PÁGINA DE FONDO --- */
+        .navbar {
+            padding: 20px;
+            background: var(--blanco);
             text-align: center;
-            border-bottom: 5px solid var(--beige-oscuro);
+            border-bottom: 1px solid var(--beige-oscuro);
         }
 
-        .banner-liquidacion h1 {
+        .hero-main {
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        /* --- ESTILOS DEL MODAL (VENTANITA) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Fondo oscurecido */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-content {
+            background: var(--rosa-pastel);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            border: 4px solid var(--blanco);
+        }
+
+        .modal-content h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            color: #d17a7a;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            font-size: 2.5rem;
+            color: #b56b6b;
+            margin-top: 0;
         }
 
-        .oferta-contenedor {
-            background: white;
-            display: inline-block;
-            padding: 20px 40px;
-            border-radius: 50px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        .oferta-box {
+            background: var(--blanco);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
         }
 
-        .precio-anterior {
+        .tachado {
             text-decoration: line-through;
             color: #999;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             display: block;
         }
 
-        .precio-nuevo {
-            font-size: 1.8rem;
+        .destacado {
+            font-size: 1.5rem;
             font-weight: 700;
-            color: var(--texto);
-        }
-
-        .vencimiento {
-            margin-top: 15px;
-            font-weight: bold;
             color: #d17a7a;
+            display: block;
+            margin-top: 5px;
         }
 
-        /* Sección de Productos de prueba */
-        .productos-section {
-            padding: 50px 20px;
-            max-width: 1100px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .grid-productos {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        .card {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            border: 1px solid var(--beige-oscuro);
-            transition: transform 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card .placeholder-img {
-            width: 100%;
-            height: 200px;
-            background-color: var(--verde-menta);
-            border-radius: 10px;
-            margin-bottom: 15px;
-        }
-
-        .btn-comprar {
-            background-color: var(--beige-oscuro);
+        .btn-cerrar {
+            background: var(--texto);
+            color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 12px 30px;
+            border-radius: 25px;
             cursor: pointer;
             font-weight: bold;
-            color: white;
-            text-transform: uppercase;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        .btn-cerrar:hover {
+            background: #333;
+        }
+
+        /* Clase para ocultar el modal */
+        .hidden {
+            display: none;
         }
 
     </style>
 </head>
 <body>
 
-    <section class="banner-liquidacion">
-        <h1>¡Liquidación Total!</h1>
-        <div class="oferta-contenedor">
-            <span class="precio-anterior">Mínimo de compra: $300.000</span>
-            <span class="precio-nuevo">¡LLEVÁ SOLO 4 PRODUCTOS!</span>
-            <p class="vencimiento">🔥 Válido hasta el 28 de Febrero</p>
+    <div id="miModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>¡Súper Liquidación!</h2>
+            <p>Aprovechá esta oportunidad única para tu negocio.</p>
+            
+            <div class="oferta-box">
+                <span class="tachado">Mínimo de compra: $300.000</span>
+                <span class="destacado">¡LLEVÁ DESDE SOLO 4 PRENDAS!</span>
+            </div>
+
+            <p><strong>🔥 Válido hasta el 28 de Febrero</strong></p>
+            
+            <button class="btn-cerrar" onclick="cerrarModal()">INGRESAR A LA TIENDA</button>
         </div>
+    </div>
+
+    <nav class="navbar">
+        <h1 style="font-family: 'Playfair Display'; margin:0;">TEXTIL MAYORISTA</h1>
+    </nav>
+
+    <section class="hero-main">
+        <h2>Bienvenido a nuestra Colección</h2>
+        <p>Calidad textil en tonos tierra y pasteles para tu marca.</p>
+        <div style="margin-top: 40px; color: #aaa;">(Aquí irán tus productos pronto...)</div>
     </section>
 
-    <section class="productos-section">
-        <h2>Nuestra Colección Textil</h2>
-        <div class="grid-productos">
-            <div class="card">
-                <div class="placeholder-img" style="background-color: #fce4ec;"></div>
-                <h3>Algodón Premium</h3>
-                <p>Textura suave y duradera.</p>
-                <button class="btn-comprar">Ver detalle</button>
-            </div>
-            <div class="card">
-                <div class="placeholder-img" style="background-color: #f3e5f5;"></div>
-                <h3>Lino Importado</h3>
-                <p>Ideal para prendas frescas.</p>
-                <button class="btn-comprar">Ver detalle</button>
-            </div>
-            <div class="card">
-                <div class="placeholder-img" style="background-color: #e8f5e9;"></div>
-                <h3>Lana Soft</h3>
-                <p>Máximo abrigo y confort.</p>
-                <button class="btn-comprar">Ver detalle</button>
-            </div>
-        </div>
-    </section>
+    <script>
+        function cerrarModal() {
+            document.getElementById('miModal').classList.add('hidden');
+        }
+    </script>
 
 </body>
 </html>
