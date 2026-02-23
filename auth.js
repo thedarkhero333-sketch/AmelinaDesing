@@ -1,67 +1,74 @@
+const URL_GOOGLE_SHEET = "https://script.google.com/macros/s/AKfycbz-ofME3KlD1ouX4lzboS14Z-ZTgTUks4fbsSxsUZYPIIylUu5JXp9nFMriswWRVL2I3A/exec";
+
+// Funciones para cambiar de vista en el modal
+function mostrarRegistro() {
+    document.getElementById('contenedor-login').style.display = 'none';
+    document.getElementById('contenedor-registro').style.display = 'block';
+}
+
+function mostrarLogin() {
+    document.getElementById('contenedor-login').style.display = 'block';
+    document.getElementById('contenedor-registro').style.display = 'none';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('formLogin');
     const modalLogin = document.getElementById('modalLogin');
     const modalOferta = document.getElementById('modalOferta');
-    const URL_GOOGLE_SHEET = "https://script.google.com/macros/s/AKfycbz-ofME3KlD1ouX4lzboS14Z-ZTgTUks4fbsSxsUZYPIIylUu5JXp9nFMriswWRVL2I3A/exec";
 
-    // 1. Verificamos si ya hay un usuario registrado en este navegador
-    const usuarioLogueado = localStorage.getItem('user_amelina');
+    // Siempre mostramos el modal al cargar la página (según tu pedido)
+    modalLogin.classList.add('activo');
+    document.body.style.overflow = "hidden";
 
-    if (usuarioLogueado) {
-        modalLogin.classList.remove('activo');
-        document.body.style.overflow = "auto";
-        // Si ya está logueado, podríamos mostrar la oferta (opcional)
-        // modalOferta.classList.add('activo'); 
-    } else {
-        modalLogin.classList.add('activo');
-        document.body.style.overflow = "hidden";
-    }
-
-    // 2. Escuchamos el envío del formulario con validación
-    form.addEventListener('submit', (e) => {
+    // --- LÓGICA DE REGISTRO ---
+    document.getElementById('formRegistro').addEventListener('submit', (e) => {
         e.preventDefault();
-
-        // Feedback visual
         const btn = e.target.querySelector('button');
-        btn.innerText = "VERIFICANDO...";
+        btn.innerText = "REGISTRANDO...";
         btn.disabled = true;
 
-        // Capturamos y limpiamos los datos
-        const datosUsuario = {
-            nombre: document.getElementById('nombre').value.trim(),
-            apellido: document.getElementById('apellido').value.trim(),
-            email: document.getElementById('email').value.trim().toLowerCase(),
-            telefono: document.getElementById('telefono').value.trim(),
-            dni: document.getElementById('dni').value.trim(),
+        const datos = {
+            nombre: document.getElementById('regNombre').value.trim(),
+            apellido: document.getElementById('regApellido').value.trim(),
+            email: document.getElementById('regEmail').value.trim().toLowerCase(),
+            telefono: document.getElementById('regTel').value.trim(),
+            dni: document.getElementById('regDni').value.trim(),
             fechaRegistro: new Date().toLocaleString()
         };
 
-        // A. Guardamos en LocalStorage
-        localStorage.setItem('user_amelina', JSON.stringify(datosUsuario));
+        // Guardamos localmente
+        localStorage.setItem('user_amelina', JSON.stringify(datos));
 
-        // B. Mandamos los datos a Google Sheets
+        // Enviamos a Google
         fetch(URL_GOOGLE_SHEET, {
             method: 'POST',
             mode: 'no-cors',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(datosUsuario)
-        })
-        .then(() => {
-            btn.innerText = "¡BIENVENIDO/A!";
-            btn.style.backgroundColor = "#a8bfa8";
-
-            setTimeout(() => {
-                modalLogin.classList.remove('activo');
-                modalOferta.classList.add('activo');
-                document.body.style.overflow = "auto";
-            }, 1000);
-        })
-        .catch(err => {
-            console.error("Error al enviar:", err);
-            // Si falla la conexión, igual lo dejamos pasar
-            modalLogin.classList.remove('activo');
-            modalOferta.classList.add('activo');
-            document.body.style.overflow = "auto";
+            body: JSON.stringify(datos)
+        }).then(() => {
+            alert("¡Cuenta creada con éxito!");
+            entrarALaTienda();
         });
     });
+
+    // --- LÓGICA DE LOGIN ---
+    document.getElementById('formLogin').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const emailIngresado = document.getElementById('loginEmail').value.trim().toLowerCase();
+        const dniIngresado = document.getElementById('loginDni').value.trim();
+
+        // Buscamos si el usuario existe en esta computadora
+        const usuarioGuardado = JSON.parse(localStorage.getItem('user_amelina'));
+
+        if (usuarioGuardado && usuarioGuardado.email === emailIngresado && usuarioGuardado.dni === dniIngresado) {
+            entrarALaTienda();
+        } else {
+            alert("Los datos no coinciden o no estás registrado en este dispositivo. Si es tu primera vez, hacé clic en 'Registrate acá'.");
+        }
+    });
+
+    function entrarALaTienda() {
+        modalLogin.classList.remove('activo');
+        modalOferta.classList.add('activo');
+        document.body.style.overflow = "auto";
+    }
 });
