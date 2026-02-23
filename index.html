@@ -273,18 +273,36 @@
 </head>
 <body>
 
-    <div id="modalLogin" class="modal-overlay">
-        <div class="modal-content" style="border-color: var(--confirmacion);">
-            <h2 style="font-family: 'Playfair Display'; font-size: 2rem; color: var(--texto-principal);">¡Bienvenido!</h2>
-            <p>Completá tus datos para acceder a la tienda mayorista:</p>
-            <form id="formLogin" class="login-form">
-                <input type="text" id="nombre" placeholder="Nombre" required>
-                <input type="text" id="apellido" placeholder="Apellido" required>
-                <input type="email" id="email" placeholder="Correo electrónico" required>
-                <input type="tel" id="telefono" placeholder="Teléfono" required>
-                <input type="number" id="dni" placeholder="DNI" required>
-                <button type="submit" class="btn-accion">INGRESAR</button>
-            </form>
+<div id="modalLogin" class="modal-overlay">
+        <div class="modal-content" style="border-color: var(--beige-oscuro);">
+            <div id="contenedor-login">
+                <h2 style="font-family: 'Playfair Display'; color: var(--texto-principal);">¡Hola de nuevo!</h2>
+                <p>Ingresá tus datos para ver los precios mayoristas:</p>
+                <form id="formLogin" class="login-form">
+                    <input type="email" id="loginEmail" placeholder="Tu Email" required>
+                    <input type="text" id="loginDni" placeholder="Tu DNI (Sin puntos)" required pattern="[0-9]{7,9}">
+                    <button type="submit" class="btn-accion">INGRESAR</button>
+                </form>
+                <p style="margin-top: 20px; font-size: 0.9rem;">
+                    ¿Es tu primera vez? <a href="#" onclick="mostrarRegistro()" style="color: var(--beige-oscuro); font-weight: bold;">Registrate acá</a>
+                </p>
+            </div>
+
+            <div id="contenedor-registro" style="display: none;">
+                <h2 style="font-family: 'Playfair Display'; color: var(--texto-principal);">Crear Cuenta</h2>
+                <p>Completá tus datos para acceder a la preventa:</p>
+                <form id="formRegistro" class="login-form">
+                    <input type="text" id="regNombre" placeholder="Nombre" required pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]+$">
+                    <input type="text" id="regApellido" placeholder="Apellido" required pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]+$">
+                    <input type="email" id="regEmail" placeholder="Email" required>
+                    <input type="tel" id="regTel" placeholder="Teléfono" required pattern="[0-9]{8,15}">
+                    <input type="text" id="regDni" placeholder="DNI (Sin puntos)" required pattern="[0-9]{7,9}">
+                    <button type="submit" class="btn-accion" style="background: var(--confirmacion);">CREAR CUENTA</button>
+                </form>
+                <p style="margin-top: 20px; font-size: 0.9rem;">
+                    ¿Ya tenés cuenta? <a href="#" onclick="mostrarLogin()" style="color: var(--beige-oscuro); font-weight: bold;">Iniciá sesión</a>
+                </p>
+            </div>
         </div>
     </div>
 
