@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amelina Designs</title>
+    <title>Amelina Designs - Mayorista</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -66,7 +66,6 @@
             letter-spacing: 1px;
         }
 
-        /* CARRITO EN NAV */
         .contenedor-carrito-header {
             position: relative;
             cursor: pointer;
@@ -182,7 +181,7 @@
         }
         .btn-ver-mas:hover { background-color: var(--beige-oscuro); color: white; }
 
-        /* --- MODALES GENERALES --- */
+        /* --- MODALES --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center;
@@ -197,7 +196,7 @@
             max-height: 90vh; overflow-y: auto;
         }
 
-        /* --- ESTILOS LOGIN / FORM --- */
+        /* --- LOGIN / REGISTRO --- */
         .login-form { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
         .login-form input {
             padding: 15px;
@@ -207,7 +206,6 @@
             font-size: 1rem;
             outline: none;
         }
-        .login-form input:focus { border-color: var(--beige-oscuro); }
 
         .btn-cerrar-modal { position: absolute; top: 20px; right: 25px; font-size: 1.8rem; cursor: pointer; border: none; background: none; color: var(--beige-oscuro); }
         
@@ -233,35 +231,17 @@
 
         .btn-ws-pedido { background: #25d366; margin-top: 15px; color: white; }
 
-        /* --- FOOTER --- */
         .footer {
             background-color: var(--blanco);
             border-top: 1px solid var(--beige-medio);
             padding: 60px 50px 30px 50px;
             margin-top: 80px;
-        }
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 50px;
-            max-width: 1200px;
-            margin: 0 auto;
             text-align: center;
         }
-        .footer-h4 { font-family: 'Playfair Display', serif; color: var(--beige-oscuro); margin-bottom: 25px; font-size: 1.3rem; }
-        .footer-insta img { width: 50px; transition: transform 0.3s; }
-        .footer-insta img:hover { transform: scale(1.15); }
-        .footer-pagos img { max-width: 250px; height: auto; margin-top: 10px; }
-        .footer-bottom { border-top: 1px solid #f2f2f2; margin-top: 50px; padding-top: 25px; text-align: center; font-size: 0.85rem; color: #aaa; }
 
         .btn-whatsapp-flotante {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 2000;
-            transition: transform 0.3s ease;
+            position: fixed; bottom: 30px; right: 30px; z-index: 2000;
         }
-        .btn-whatsapp-flotante:hover { transform: scale(1.1); }
         .btn-whatsapp-flotante img { width: 65px; height: 65px; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.15)); }
 
         @media (max-width: 768px) {
@@ -273,8 +253,9 @@
 </head>
 <body>
 
-<div id="modalLogin" class="modal-overlay">
+    <div id="modalLogin" class="modal-overlay">
         <div class="modal-content" style="border-color: var(--beige-oscuro);">
+            
             <div id="contenedor-login">
                 <h2 style="font-family: 'Playfair Display'; color: var(--texto-principal);">¡Hola de nuevo!</h2>
                 <p>Ingresá tus datos para ver los precios mayoristas:</p>
@@ -284,7 +265,7 @@
                     <button type="submit" class="btn-accion">INGRESAR</button>
                 </form>
                 <p style="margin-top: 20px; font-size: 0.9rem;">
-                    ¿Es tu primera vez? <a href="#" onclick="mostrarRegistro()" style="color: var(--beige-oscuro); font-weight: bold;">Registrate acá</a>
+                    ¿Es tu primera vez? <span id="linkIrARegistro" style="color: var(--beige-oscuro); font-weight: bold; cursor: pointer;">Registrate acá</span>
                 </p>
             </div>
 
@@ -300,7 +281,7 @@
                     <button type="submit" class="btn-accion" style="background: var(--confirmacion);">CREAR CUENTA</button>
                 </form>
                 <p style="margin-top: 20px; font-size: 0.9rem;">
-                    ¿Ya tenés cuenta? <a href="#" onclick="mostrarLogin()" style="color: var(--beige-oscuro); font-weight: bold;">Iniciá sesión</a>
+                    ¿Ya tenés cuenta? <span id="linkIrALogin" style="color: var(--beige-oscuro); font-weight: bold; cursor: pointer;">Iniciá sesión</span>
                 </p>
             </div>
         </div>
@@ -344,59 +325,23 @@
     </section>
 
     <section id="mantas" class="seccion-catalogo">
-        <h2 class="titulo-seccion">Caminos & Mantas</h2>
+        <h2 class="titulo-seccion">Nuestros Productos</h2>
         <div class="grid-productos">
-            <div class="tarjeta-producto" onclick="abrirProducto('Camino de Gasa Natural', 'Nuestros caminos de GASA NATURAL en celeste pastel...', '$25.000', '$18.500', 'img/productos/camgas.jpg')">
-                <img src="img/productos/camgas.jpg" alt="Camino" class="img-card">
-                <div class="info-producto"><h3>Camino de Gasa Natural</h3><button class="btn-ver-mas">Ver detalle</button></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="pillows" class="seccion-catalogo">
-        <h2 class="titulo-seccion">Pillows</h2>
-        <div class="grid-productos">
-            <div class="tarjeta-producto" onclick="abrirProducto('Pillows Premium', 'Producto de gran demanda, tus clientes LOS AMAN.', '$18.000', '$12.500', 'img/productos/pillows.png')">
-                <img src="img/productos/pillows.png" alt="Pillows" class="img-card">
-                <div class="info-producto"><h3>Pillows Premium</h3><button class="btn-ver-mas">Ver detalle</button></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="ceramicas" class="seccion-catalogo">
-        <h2 class="titulo-seccion">Cerámicas</h2>
-        <div class="grid-productos">
-            <div class="tarjeta-producto" onclick="abrirProducto('Campanitas de Cerámica', 'Perfectas para un desayuno perfecto.', '$15.000', '$11.200', 'img/productos/camp_cer.jpg')">
-                <img src="img/productos/camp_cer.jpg" alt="Campanitas" class="img-card">
-                <div class="info-producto"><h3>Campanitas de Cerámica</h3><button class="btn-ver-mas">Ver detalle</button></div>
+            <div class="tarjeta-producto" onclick="abrirProducto('Camino de Gasa Natural', 'Gasa 100% natural teñida a mano.', '$25.000', '$18.500', 'img/productos/camgas.jpg')">
+                <img src="img/productos/camgas.jpg" class="img-card">
+                <div class="info-producto"><h3>Camino de Gasa</h3><button class="btn-ver-mas">Ver detalle</button></div>
             </div>
         </div>
     </section>
 
     <footer class="footer">
-        <div class="footer-grid">
-            <div class="footer-item">
-                <img src="img/ame.png" alt="Ame" style="max-height: 70px; margin-bottom: 20px;">
-                <p>Venta mayorista de textiles y deco artesanal.</p>
-            </div>
-            <div class="footer-item">
-                <h4 class="footer-h4">Seguinos</h4>
-                <a href="https://www.instagram.com/amelinadesigns/" target="_blank" class="footer-insta">
-                    <img src="img/insta.png" alt="Instagram">
-                </a>
-            </div>
-            <div class="footer-item">
-                <h4 class="footer-h4">Medios de Pago</h4>
-                <div class="footer-pagos"><img src="img/transf.png" alt="Pagos"></div>
-            </div>
-        </div>
         <div class="footer-bottom">&copy; 2026 Amelina Designs ®</div>
     </footer>
 
     <div id="modalProducto" class="modal-overlay">
         <div class="modal-content">
             <button class="btn-cerrar-modal" onclick="cerrarModal('modalProducto')">✖</button>
-            <img id="modalImgTag" src="" alt="Prod" class="img-modal-prod">
+            <img id="modalImgTag" src="" class="img-modal-prod">
             <h2 id="modalTitulo"></h2>
             <div class="precio-contenedor">
                 <span id="modalPrecioViejo" class="precio-tachado"></span>
@@ -417,40 +362,15 @@
     </div>
 
     <a href="https://wa.me/5491154034166" class="btn-whatsapp-flotante" target="_blank">
-        <img src="img/whats.png" alt="WS">
+        <img src="img/whats.png" alt="WhatsApp">
     </a>
 
+    <script src="auth.js"></script>
     <script>
         let carrito = {};
         let productoActual = "";
         const NUMERO_CEL = "5491154034166";
 
-        // --- LÓGICA DE BASE DE DATOS (AUTH) ---
-        window.onload = function() {
-            const usuario = localStorage.getItem('user_amelina');
-            if (!usuario) {
-                document.getElementById('modalLogin').classList.add('activo');
-                document.body.style.overflow = "hidden";
-            } else {
-                document.getElementById('modalOferta').classList.add('activo');
-            }
-        };
-
-        document.getElementById('formLogin').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const datos = {
-                nombre: document.getElementById('nombre').value,
-                apellido: document.getElementById('apellido').value,
-                email: document.getElementById('email').value,
-                telefono: document.getElementById('telefono').value,
-                dni: document.getElementById('dni').value
-            };
-            localStorage.setItem('user_amelina', JSON.stringify(datos));
-            cerrarModal('modalLogin');
-            document.getElementById('modalOferta').classList.add('activo');
-        });
-
-        // --- FUNCIONES TIENDA ---
         function cerrarModal(id) {
             document.getElementById(id).classList.remove('activo');
             document.body.style.overflow = "auto";
@@ -463,9 +383,6 @@
             document.getElementById('modalPrecioNuevo').innerText = precioN;
             document.getElementById('modalImgTag').src = rutaImg;
             productoActual = titulo;
-            const btn = document.getElementById('btnAgregar');
-            btn.innerText = "AGREGAR AL CARRITO";
-            btn.classList.remove('agregado');
             document.getElementById('modalProducto').classList.add('activo');
             document.body.style.overflow = "hidden";
         }
@@ -473,10 +390,7 @@
         function agregarAlCarritoDesdeModal() {
             carrito[productoActual] = (carrito[productoActual] || 0) + 1;
             actualizarContador();
-            const btn = document.getElementById('btnAgregar');
-            btn.innerText = "✓ Agregado";
-            btn.classList.add('agregado');
-            setTimeout(() => cerrarModal('modalProducto'), 800);
+            cerrarModal('modalProducto');
         }
 
         function actualizarContador() {
@@ -490,33 +404,18 @@
             let contenedor = document.getElementById('contenido-carrito');
             contenedor.innerHTML = "";
             let keys = Object.keys(carrito);
-            if (keys.length === 0) {
-                contenedor.innerHTML = "<p style='text-align:center;'>El carrito está vacío.</p>";
-            } else {
-                keys.forEach(prod => {
-                    contenedor.innerHTML += `<div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #f9f9f9;">
-                        <span>${prod}</span><b>x${carrito[prod]}</b>
-                    </div>`;
-                });
-            }
+            keys.forEach(p => {
+                contenedor.innerHTML += `<div style="display:flex; justify-content:space-between; padding:10px 0;"><span>${p}</span><b>x${carrito[p]}</b></div>`;
+            });
             document.getElementById('modalCarrito').classList.add('activo');
         }
 
         function enviarPedidoWhatsApp() {
             const user = JSON.parse(localStorage.getItem('user_amelina'));
             let keys = Object.keys(carrito);
-            if (keys.length === 0) return;
-
-            let mensaje = `🌿 *NUEVO PEDIDO MAYORISTA*\n\n`;
-            mensaje += `*Cliente:* ${user.nombre} ${user.apellido}\n`;
-            mensaje += `*DNI:* ${user.dni}\n`;
-            mensaje += `*Email:* ${user.email}\n`;
-            mensaje += `*Tel:* ${user.telefono}\n`;
-            mensaje += `--------------------------\n`;
+            if (!user || keys.length === 0) return;
+            let mensaje = `🌿 *PEDIDO AME*\n*Cliente:* ${user.nombre}\n*DNI:* ${user.dni}\n---\n`;
             keys.forEach(p => { mensaje += `• ${p} (x${carrito[p]})\n`; });
-            mensaje += `--------------------------\n`;
-            mensaje += `¿Me confirmarían el stock? ¡Gracias!`;
-
             window.open(`https://wa.me/${NUMERO_CEL}?text=${encodeURIComponent(mensaje)}`, '_blank');
         }
     </script>
