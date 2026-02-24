@@ -206,6 +206,7 @@
             font-size: 1rem;
             outline: none;
         }
+        .login-form input:invalid:not(:placeholder-shown) { border-color: var(--alerta-rojo); }
 
         .btn-cerrar-modal { position: absolute; top: 20px; right: 25px; font-size: 1.8rem; cursor: pointer; border: none; background: none; color: var(--beige-oscuro); }
         
@@ -261,7 +262,7 @@
                 <p>Ingresá tus datos para ver los precios mayoristas:</p>
                 <form id="formLogin" class="login-form">
                     <input type="email" id="loginEmail" placeholder="Tu Email" required>
-                    <input type="text" id="loginDni" placeholder="Tu DNI (Sin puntos)" required pattern="[0-9]{7,9}">
+                    <input type="text" id="loginDni" placeholder="Tu DNI (8 números)" required pattern="[0-9]{8}" maxlength="8" title="El DNI debe tener exactamente 8 números, sin letras ni puntos.">
                     <button type="submit" class="btn-accion">INGRESAR</button>
                 </form>
                 <p style="margin-top: 20px; font-size: 0.9rem;">
@@ -277,7 +278,7 @@
                     <input type="text" id="regApellido" placeholder="Apellido" required pattern="^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]+$">
                     <input type="email" id="regEmail" placeholder="Email" required>
                     <input type="tel" id="regTel" placeholder="Teléfono" required pattern="[0-9]{8,15}">
-                    <input type="text" id="regDni" placeholder="DNI (Sin puntos)" required pattern="[0-9]{7,9}">
+                    <input type="text" id="regDni" placeholder="DNI (8 números sin puntos)" required pattern="[0-9]{8}" maxlength="8" title="Ingresá exactamente 8 números.">
                     <button type="submit" class="btn-accion" style="background: var(--confirmacion);">CREAR CUENTA</button>
                 </form>
                 <p style="margin-top: 20px; font-size: 0.9rem;">
@@ -319,8 +320,8 @@
     <section class="hero">
         <div class="hero-background"></div>
         <div class="hero-content">
-            <h1 class="hero-titulo">AMELINA DESIGN</h1>
-            <p class="hero-cursiva">"Suma a tu negocio o emprendimiento textiles que enamoren a tus clientes."</p>
+            <h1 class="hero-titulo">A M E L I N A</h1>
+            <p class="hero-cursiva">"Transformamos casas en hogares, con la calidez que tus clientes buscan."</p>
         </div>
     </section>
 
