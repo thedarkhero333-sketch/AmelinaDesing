@@ -17,16 +17,17 @@ document.addEventListener('DOMContentLoaded', () => {
         contLogin.style.display = 'block';
     });
 
-    // Bloqueo de scroll al inicio
-    modalLogin.classList.add('activo');
-    document.body.style.overflow = "hidden";
+    // Bloqueo de scroll al inicio y animación de entrada (Ventanita desde arriba)
+    setTimeout(() => {
+        modalLogin.classList.add('activo');
+        document.body.style.overflow = "hidden";
+    }, 100);
 
     // LÓGICA DE REGISTRO
     document.getElementById('formRegistro').addEventListener('submit', (e) => {
         e.preventDefault();
         
         const dniVal = document.getElementById('regDni').value.trim();
-        // Doble verificación de seguridad para el DNI
         if(dniVal.length !== 8 || isNaN(dniVal)) {
             alert("El DNI debe tener 8 números exactos.");
             return;
@@ -56,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
             alert("¡Registro exitoso! Ya podés ver los productos.");
             entrar();
         }).catch(() => {
-            // Si falla internet, igual entra porque guardamos en localStorage
             entrar();
         });
     });
@@ -68,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const dniIng = document.getElementById('loginDni').value.trim();
         const userSave = JSON.parse(localStorage.getItem('user_amelina'));
 
-        // Verifica contra lo guardado en el navegador
         if (userSave && userSave.email === emailIng && userSave.dni === dniIng) {
             entrar();
         } else {
@@ -77,8 +76,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function entrar() {
+        // Primero subimos la ventanita de login
         modalLogin.classList.remove('activo');
-        modalOferta.classList.add('activo');
+        
+        // Esperamos un segundo a que termine la animación de subida para bajar la de oferta
+        setTimeout(() => {
+            modalOferta.classList.add('activo');
+        }, 600);
+        
         document.body.style.overflow = "auto";
     }
 });
