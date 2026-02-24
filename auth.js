@@ -1,25 +1,27 @@
-const URL_GOOGLE_SHEET = "https://script.google.com/macros/s/AKfycbz-ofME3KlD1ouX4lzboS14Z-ZTgTUks4fbsSxsUZYPIIylUu5JXp9nFMriswWRVL2I3A/exec";
-
-// Funciones para cambiar de vista en el modal
-function mostrarRegistro() {
-    document.getElementById('contenedor-login').style.display = 'none';
-    document.getElementById('contenedor-registro').style.display = 'block';
-}
-
-function mostrarLogin() {
-    document.getElementById('contenedor-login').style.display = 'block';
-    document.getElementById('contenedor-registro').style.display = 'none';
-}
-
 document.addEventListener('DOMContentLoaded', () => {
+    const URL_GOOGLE_SHEET = "https://script.google.com/macros/s/AKfycbz-ofME3KlD1ouX4lzboS14Z-ZTgTUks4fbsSxsUZYPIIylUu5JXp9nFMriswWRVL2I3A/exec";
+
     const modalLogin = document.getElementById('modalLogin');
     const modalOferta = document.getElementById('modalOferta');
+    const contLogin = document.getElementById('contenedor-login');
+    const contReg = document.getElementById('contenedor-registro');
 
-    // Siempre mostramos el modal al cargar la página (según tu pedido)
+    // Botones para intercambiar vistas
+    document.getElementById('linkIrARegistro').addEventListener('click', () => {
+        contLogin.style.display = 'none';
+        contReg.style.display = 'block';
+    });
+
+    document.getElementById('linkIrALogin').addEventListener('click', () => {
+        contReg.style.display = 'none';
+        contLogin.style.display = 'block';
+    });
+
+    // Forzar modal al cargar
     modalLogin.classList.add('activo');
     document.body.style.overflow = "hidden";
 
-    // --- LÓGICA DE REGISTRO ---
+    // LÓGICA DE REGISTRO
     document.getElementById('formRegistro').addEventListener('submit', (e) => {
         e.preventDefault();
         const btn = e.target.querySelector('button');
@@ -35,38 +37,34 @@ document.addEventListener('DOMContentLoaded', () => {
             fechaRegistro: new Date().toLocaleString()
         };
 
-        // Guardamos localmente
         localStorage.setItem('user_amelina', JSON.stringify(datos));
 
-        // Enviamos a Google
         fetch(URL_GOOGLE_SHEET, {
             method: 'POST',
             mode: 'no-cors',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(datos)
         }).then(() => {
-            alert("¡Cuenta creada con éxito!");
-            entrarALaTienda();
+            alert("¡Cuenta creada!");
+            entrar();
         });
     });
 
-    // --- LÓGICA DE LOGIN ---
+    // LÓGICA DE LOGIN
     document.getElementById('formLogin').addEventListener('submit', (e) => {
         e.preventDefault();
-        const emailIngresado = document.getElementById('loginEmail').value.trim().toLowerCase();
-        const dniIngresado = document.getElementById('loginDni').value.trim();
+        const emailIng = document.getElementById('loginEmail').value.trim().toLowerCase();
+        const dniIng = document.getElementById('loginDni').value.trim();
+        const userSave = JSON.parse(localStorage.getItem('user_amelina'));
 
-        // Buscamos si el usuario existe en esta computadora
-        const usuarioGuardado = JSON.parse(localStorage.getItem('user_amelina'));
-
-        if (usuarioGuardado && usuarioGuardado.email === emailIngresado && usuarioGuardado.dni === dniIngresado) {
-            entrarALaTienda();
+        if (userSave && userSave.email === emailIng && userSave.dni === dniIng) {
+            entrar();
         } else {
-            alert("Los datos no coinciden o no estás registrado en este dispositivo. Si es tu primera vez, hacé clic en 'Registrate acá'.");
+            alert("Datos incorrectos o no estás registrado en este navegador.");
         }
     });
 
-    function entrarALaTienda() {
+    function entrar() {
         modalLogin.classList.remove('activo');
         modalOferta.classList.add('activo');
         document.body.style.overflow = "auto";
