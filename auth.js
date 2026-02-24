@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const contLogin = document.getElementById('contenedor-login');
     const contReg = document.getElementById('contenedor-registro');
 
-    // Botones para intercambiar vistas
+    // Navegación interna del modal
     document.getElementById('linkIrARegistro').addEventListener('click', () => {
         contLogin.style.display = 'none';
         contReg.style.display = 'block';
@@ -17,13 +17,21 @@ document.addEventListener('DOMContentLoaded', () => {
         contLogin.style.display = 'block';
     });
 
-    // Forzar modal al cargar
+    // Bloqueo de scroll al inicio
     modalLogin.classList.add('activo');
     document.body.style.overflow = "hidden";
 
     // LÓGICA DE REGISTRO
     document.getElementById('formRegistro').addEventListener('submit', (e) => {
         e.preventDefault();
+        
+        const dniVal = document.getElementById('regDni').value.trim();
+        // Doble verificación de seguridad para el DNI
+        if(dniVal.length !== 8 || isNaN(dniVal)) {
+            alert("El DNI debe tener 8 números exactos.");
+            return;
+        }
+
         const btn = e.target.querySelector('button');
         btn.innerText = "REGISTRANDO...";
         btn.disabled = true;
@@ -33,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
             apellido: document.getElementById('regApellido').value.trim(),
             email: document.getElementById('regEmail').value.trim().toLowerCase(),
             telefono: document.getElementById('regTel').value.trim(),
-            dni: document.getElementById('regDni').value.trim(),
+            dni: dniVal,
             fechaRegistro: new Date().toLocaleString()
         };
 
@@ -45,7 +53,10 @@ document.addEventListener('DOMContentLoaded', () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(datos)
         }).then(() => {
-            alert("¡Cuenta creada!");
+            alert("¡Registro exitoso! Ya podés ver los productos.");
+            entrar();
+        }).catch(() => {
+            // Si falla internet, igual entra porque guardamos en localStorage
             entrar();
         });
     });
@@ -57,10 +68,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const dniIng = document.getElementById('loginDni').value.trim();
         const userSave = JSON.parse(localStorage.getItem('user_amelina'));
 
+        // Verifica contra lo guardado en el navegador
         if (userSave && userSave.email === emailIng && userSave.dni === dniIng) {
             entrar();
         } else {
-            alert("Datos incorrectos o no estás registrado en este navegador.");
+            alert("Los datos no coinciden. Asegurate de usar el mismo Email y DNI con el que te registraste en este dispositivo.");
         }
     });
 
